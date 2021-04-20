@@ -27,29 +27,23 @@ app.get('/', function (req, res) {
 app.listen(8081, function () {
     console.log('Example app listening on port 8081!')
 })
-app.post(`/test`,(req,res)=>{
-     
-    fetch('https://api.meaningcloud.com/sentiment-2.1', {
-        method: "post",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-      
-        //make sure to serialize your JSON body
-        body: JSON.stringify({
-          name: myName,
-          password: myPassword
-        })
-      })
-      .then( (response) => { 
-         return res.json()
-      })
-        .then (data=> console.log(data))
-        .catch(error=> console.log('error'))
-        
-})
 
+const data = { username: 'example' };
+
+fetch('https://api.meaningcloud.com/sentiment-2.1', {
+  method: 'POST', // or 'PUT'
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(data),
+})
+.then(response => response.json())
+.then(data => {
+  console.log('Success:', data);
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
 app.get('/test', function (req, res) {
     res.send(mockAPIResponse)
 })
