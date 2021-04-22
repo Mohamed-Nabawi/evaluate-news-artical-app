@@ -1,21 +1,44 @@
 function handleSubmit(event) {
     event.preventDefault()
-
+    app.get(`/test`,(req,res)=>{
     // check what text was put into the form field
-    let formText = document.getElementById('name').value
-    Client.checkForName(formText)
+    let formurl = document.getElementById('name').value
+   if(Client.checkForName(JSON.stringify(formurl.value))){
 
     console.log("::: Form Submitted :::")
     
+    console.log("requesting");
+   
+    fetch('https://localhost:8081/test',{
     
-    fetch('https://localhost:8081/test')
-    .then(res => {
-        return res.json()
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({text:formurl.value})
     })
-    .then(function(res,response) {
-        console.log(res);
-        document.getElementById('results').innerHTML = res.message
+    .then(res => res.json())
+    .then(function(res) {
+        // print for debugging
+        console.log(res); 
+
+        // Populate html with result
+        document.querySelector('section.url-results #polarity').innerHTML = res.polarity
+        document.querySelector('section.url-results #subjectivity').innerHTML = res.subjectivity
+        document.querySelector('section.url-results #polarity_confidence').innerHTML = res.polarity_confidence
+        document.querySelector('section.url-results #subjectivity_confidence').innerHTML = res.subjectivity_confidence
+        document.querySelector('section.url-results #excerpt').innerHTML = res.text
     })
 
-}
+}else{
+    // Display error message if URL is not valide
+    var error_section = document.querySelector('section.errors');
+    var error = document.querySelector('section.errors #error');
+    error.innerHTML = "The URL:[" +JSON.stringify(formurl.value)+"] is not valide. Please enter a valid url"
+    error_section.style.display = "block";
+
+} 
+    })}
+
 export{handleSubmit}
