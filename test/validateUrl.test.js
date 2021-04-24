@@ -1,8 +1,8 @@
-import { validateUrl } from "../js/validateUrl";
+import { checkForName } from "../src/client/js/nameChecker";
 
-describe("Test: 'validateUrl()'", () => {
+describe("Test: 'checkForName()'", () => {
     test('Should be defined', () => {
-        expect(validateUrl).toBeDefined();
+        expect(checkForName).toBeDefined();
     });
 
 
@@ -10,18 +10,18 @@ describe("Test: 'validateUrl()'", () => {
         const urls = [
             "https://example.com",
             "http://example.com",
-            "example.com",
-            "example.com/path",
             "https://www.example.com",
-            "www.example.com"
         ];
+            
+            
+       
 
         urls.forEach(url => {
-            expect(validateUrl(url)).toBeTruthy;
+            expect(checkForName(url)).toBeTruthy();
         });
     });
 
     test('It should be return false if invalid URL is passed into it', () => {
-        expect(validateUrl("google.")).toBeFalsy();
+        expect(checkForName("google.")).toBeFalsy();
     });
 });
