@@ -25,11 +25,13 @@ function handleSubmit(event) {
                 console.log(res);
 
                 // Populate html with result
-                document.querySelector('section.url-results #polarity').innerHTML = res.polarity
-                document.querySelector('section.url-results #subjectivity').innerHTML = res.subjectivity
-                document.querySelector('section.url-results #polarity_confidence').innerHTML = res.polarity_confidence
-                document.querySelector('section.url-results #subjectivity_confidence').innerHTML = res.subjectivity_confidence
-                document.querySelector('section.url-results #excerpt').innerHTML = res.text
+                document.getElementById('agreement').innerHTML = res.agreement
+                document.getElementById('confidence').innerHTML = res.confidence
+                document.getElementById('model').innerHTML = res.model
+                document.getElementById('irony').innerHTML = res.irony
+                
+                
+                
             })
 
     } else {

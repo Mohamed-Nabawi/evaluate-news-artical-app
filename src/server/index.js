@@ -7,7 +7,7 @@ var path = require('path')
 
 const express = require('express')
 const mockAPIResponse = require('./mockAPI.js')
-var bodyParser = require('body-parser')
+
 const app = express()
 app.use(express.json({
   extanded: false
@@ -15,7 +15,7 @@ app.use(express.json({
 app.use(cors())
 
 const fetch = require("node-fetch");
-
+path.resolve(__dirname, /*path to file or directory*/)
 app.use(express.static('dist'))
 /*
 app.use(bodyParser.json())
@@ -23,6 +23,8 @@ app.use(express.json({
   extanded: false
 }));
 */
+app.use(express.static(path.resolve(__dirname, 'dist')))
+
 console.log(__dirname)
 
 app.listen(8081, function () {
@@ -38,7 +40,7 @@ app.post('/test', function (req, res) {
   var FormData = require('form-data');
   // define formdata
   var formdata = new FormData();
-  formdata.append("key", process.env['API_KEY']);
+  formdata.append("key", process.env["API_KEY"]);
   formdata.append("url", req.body.formurl);
   formdata.append("lang", "en"); // 2-letter code, like en es fr ...
   
